@@ -4,9 +4,9 @@ import numpy as np
 # -----------------------------
 # SET PATHS + VARIABLES
 # -----------------------------
-INPUT_FILE = "/Users/yasna/Desktop/Spring26/419 Project/scGPT-PRECISE/raw_data/GSE120575_Sade_Feldman_melanoma_single_cells_TPM_GEO.txt"
-OUTPUT_FILE = "/Users/yasna/Desktop/Spring26/419 Project/scGPT-PRECISE/cleaned_data/cleaned_GSE120575.txt"
-CLUSTER_FILE = "/Users/yasna/Desktop/Spring26/419 Project/scGPT-PRECISE/raw_data/NIHMS1510803-supplement-10.xlsx"
+INPUT_FILE = "raw_data/GSE120575_Sade_Feldman_melanoma_single_cells_TPM_GEO.txt"
+OUTPUT_FILE = "cleaned_data/cleaned_GSE120575.txt"
+CLUSTER_FILE = "raw_data/NIHMS1510803-supplement-10.xlsx"
 #METADATA_FILE = "path/to/your/metadata_file.csv"
 T_CELL_CLUSTERS = [5, 6, 7, 8, 9, 10, 11]
 GENE_PREFIXES_TO_REMOVE = ("MT-", "RPS", "RPL", "MRP", "MTRNR")
@@ -61,20 +61,6 @@ def remove_genes_not_expressed(df, min_percent):
 # FILTER FOR T-CELLS
 # -----------------------------
 # Done AFTER gene filtering (so gene % threshold is computed on full cell set first)
-def remove_genes_not_expressed(df, min_percent=MIN_CELL_PERCENT):
-    print(f"Filtering genes expressed in <{min_percent*100:.0f}% of cells...")
-    num_cells = df.shape[1]
-    min_cells = int(np.ceil(min_percent * num_cells))
-    print(f"  Gene must be expressed in >= {min_cells} cells (out of {num_cells})")
-    expressed_cells_per_gene = (df > 0).sum(axis=1)
-    keep_genes = expressed_cells_per_gene >= min_cells
-    filtered_df = df.loc[keep_genes]
-    print(f"Remaining genes: {filtered_df.shape[0]}")
-    return filtered_df
- 
-# -----------------------------
-# FILTER FOR T-CELL CLUSTERS
-# -----------------------------
 def filter_cells_by_cluster(df, cluster_file, clusters_to_keep):
     print("Filtering T-cell clusters...")
  
