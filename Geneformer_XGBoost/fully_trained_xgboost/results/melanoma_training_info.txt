@@ -1,0 +1,20 @@
+Melanoma XGBoost Final Model — Training Summary
+================================================
+Input              : ../xgboost_input_data/melanoma_tcells_labeled.h5ad
+Cells              : 12243
+Embedding dims     : 768
+Samples            : 48
+Responder cells    : 3916
+Non-responder cells: 8327
+scale_pos_weight   : 2.1264
+
+Hyperparameters (tuned via LOO CV on melanoma)
+----------------------------------------------
+max_depth          : 3
+learning_rate      : 0.01
+n_estimators       : 25
+objective          : binary:logistic
+
+LOO CV AUC (melanoma internal validation): 0.901
+
+Model saved to: results/melanoma_xgb_model.json
